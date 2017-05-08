@@ -5,8 +5,8 @@ RUN apt-get update  && apt-get install -y openjdk-8-jdk
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
 RUN export JAVA_HOME
 RUN apt-get install -y wget expect unzip libz1:i386 libncurses5:i386 libbz2-1.0:i386 libstdc++6:i386 software-properties-common
-ENV LANG en_US.UTF-8 
-RUN locale-gen $LANG
+# ENV LANG en_US.UTF-8 
+# RUN locale-gen $LANG
 
 RUN add-apt-repository ppa:openjdk-r/ppa
 RUN apt-get update && apt-get install -y openjdk-8-jdk
