@@ -2,18 +2,20 @@ FROM ubuntu:16.04
 MAINTAINER bartosz.sowa@comarch.com 
 RUN dpkg --add-architecture i386
 RUN apt-get update  && apt-get install -y openjdk-8-jdk
-ENV JAVA_HOME /usr/lib/jvm/java-8-oracle/
+ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
 RUN export JAVA_HOME
 RUN apt-get install -y wget expect unzip libz1:i386 libncurses5:i386 libbz2-1.0:i386 libstdc++6:i386 software-properties-common
-ENV LANG en_US.UTF-8 RUN locale-gen $LANG
+ENV LANG en_US.UTF-8 
+RUN locale-gen $LANG
 
 RUN add-apt-repository ppa:openjdk-r/ppa
 RUN apt-get update && apt-get install -y openjdk-8-jdk
-ENV JAVA_HOME /usr/lib/jvm/java-8-oracle/ 
+ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/ 
 RUN export JAVA_HOME
 RUN mkdir -p /android-sdk
 RUN if [ ! -d tools ]; then wget -nv -P /android-sdk/ "https://dl.google.com/android/repository/tools_r25.2.3-linux.zip"; unzip /android-sdk/tools_r25.2.3-linux.zip -d /android-sdk; fi
-ENV ANDROID_HOME /android-sdk RUN export ANDROID_HOME
+ENV ANDROID_HOME /android-sdk 
+RUN export ANDROID_HOME
 
 ENV PATH ${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools RUN export PATH
 RUN ( sleep 5 && while [ 1 ]; do sleep 1; echo y; done ) | /android-sdk/tools/android update sdk -a -u -s --filter tools
